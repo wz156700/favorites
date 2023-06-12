@@ -1,6 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const winState = require("electron-win-state").default;
 const path = require("path");
+require("./controller/getSource.js")
+require("./controller/alert.js")
 
 const createWindow = () => {
     const winstate = new winState({
@@ -11,13 +13,13 @@ const createWindow = () => {
     const win = new BrowserWindow({
         ...winstate.winOptions,
         webPreferences: {
-            preload: path.resolve(__dirname, "./preload/index.js"), // 引入预处理文件
+            preload: path.join(__dirname, './preload/index.js'), // 引入预处理文件
         },
     });
 
     win.loadURL("http://127.0.0.1:5173/");
-    win.webContents.openDevTools = true;
 
+    win.webContents.openDevTools = true;
     winState.manage(win);
 };
 
@@ -36,4 +38,11 @@ app.whenReady().then(() => {
             app.quit();
         }
     });
+
+    // 优雅的打开窗口
+    win.once('ready-to-show', () => {
+        win.show()
+    })
 });
+
+
