@@ -30,8 +30,15 @@ const getSource = (url) => {
             try {
                 const title = win.getTitle(); // 获取窗口名字
                 const image = await win.webContents.capturePage() // 获取窗口截图
-                const imageUrl = image.toDataURL(); // 获取截图的base64图片
-                resolve({ title, url, imageUrl }) // 返回网站的图片，标题
+                console.log(image.isEmpty());
+                if (image.isEmpty()) {
+                    resolve({ msg: '网址有误,无法获取网页信息，请核对' })
+                }
+                else {
+                    const imageUrl = image.toDataURL(); // 获取截图的base64图片
+                    resolve({ title, url, imageUrl }) // 返回网站的图片，标题
+                }
+
             } catch (error) {
                 reject(error)
             }

@@ -18,7 +18,11 @@ const webSiteStore = defineStore('websiteStore', {
             this.websiteList = store.get('websiteList') ?? []
         },
         deleteOfWebsiteList(url) {
-            this.websiteList = _.dropWhile(this.websiteList, ['url', url])
+            this.websiteList = this.websiteList.filter((item, index) => {
+                if (item.url != url) {
+                    return item;
+                }
+            })
             store.set('websiteList', this.websiteList)
         },
         checkUrl(url) {

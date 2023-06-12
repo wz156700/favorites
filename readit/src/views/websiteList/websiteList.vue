@@ -1,18 +1,21 @@
 <script setup>
-import { ref } from "vue";
-import useWebSiteStore from "@/store/website.js";
-const webSiteStore = useWebSiteStore();
-// webSiteStore.init();
+import useIndex from "./useIndex";
+import useStore from "./useStore";
+
+const { currentIndex, handClick } = useIndex();
+const webSiteStore = useStore();
 </script>
 
 <template>
   <div>
-    <p id="no-item">暂无数据。</p>
-    <div id="items">
+    <p id="no-item" v-if="!webSiteStore.websiteList.length">暂无数据。</p>
+    <div id="items" v-else>
       <div
         class="read-item"
         v-for="(item, index) in webSiteStore.websiteList"
         :key="index"
+        :class="{ selected: currentIndex === index }"
+        @click="handClick(item, index)"
       >
         <img :src="item.imageUrl" :title="item.title" />
         <h2>{{ item.title }}</h2>
