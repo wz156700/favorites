@@ -3,16 +3,16 @@ import useIndex from "./useIndex";
 import useStore from "./useStore";
 
 const { currentIndex, handClick } = useIndex();
-const webSiteStore = useStore();
+const { webSiteStore, keyWords } = useStore();
 </script>
 
 <template>
   <div>
-    <p id="no-item" v-if="!webSiteStore.websiteList.length">暂无数据。</p>
+    <p id="no-item" v-if="!webSiteStore.find(keyWords).length">暂无数据。</p>
     <div id="items" v-else>
       <div
         class="read-item"
-        v-for="(item, index) in webSiteStore.websiteList"
+        v-for="(item, index) in webSiteStore.find(keyWords)"
         :key="index"
         :class="{ selected: currentIndex === index }"
         @click="handClick(item, index)"

@@ -1,13 +1,19 @@
 <script setup>
 import { ref, inject } from "vue";
+import _ from "lodash";
 const { setShow } = inject("showDialog");
+const { setKeywords } = inject("controlKeyWords");
+
+const inputKey = _.debounce((e) => {
+  setKeywords(e.target.value);
+}, 500);
 </script>
 
 <template>
   <div class="searchContainner">
     <div class="button" @click="setShow(true)">+</div>
     <div class="input">
-      <input type="text" placeholder="请输入关键字" />
+      <input type="text" placeholder="请输入关键字" @keyup="inputKey" />
     </div>
   </div>
 </template>

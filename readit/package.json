@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "start": "nodemon --exec electron . --watch ./ --ext .js .html .ts .css .vue"
+    "start": "nodemon --exec electron . --watch ./ --ext .js .html .ts .css .vue",
+    "test":"electron ."
   },
   "dependencies": {
     "lodash": "^4.17.21",

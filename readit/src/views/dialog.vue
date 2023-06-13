@@ -10,7 +10,7 @@ const webSiteStore = useWebSiteStore();
 const sendUrl = async () => {
   // 如果网址存在的情况
   if (webSiteStore.checkUrl(url.value) != -1) {
-    myApi.openAlert("网页已存在");
+    myApi.openAlert("网页已添加");
     setShow(false);
     url.value = "";
     return;
@@ -46,7 +46,12 @@ const closeDialog = () => {
   <div class="dialog-warp" v-if="isShow">
     <div class="content">
       <div class="input">
-        <input type="text" placeholder="请输入网址......" v-model="url" />
+        <input
+          type="text"
+          placeholder="请输入网址......"
+          v-model="url"
+          @keydown.enter="sendUrl"
+        />
       </div>
       <div class="btns">
         <button @click="sendUrl" :disabled="isDisable">添加</button>
