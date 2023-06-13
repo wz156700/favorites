@@ -8,7 +8,7 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "start": "nodemon --exec electron . --watch ./ --ext .js .html .ts .css .vue",
-    "test":"electron ."
+    "test": "electron ."
   },
   "dependencies": {
     "lodash": "^4.17.21",
@@ -16,7 +16,8 @@
     "pinia": "^2.1.3",
     "store2": "^2.14.2",
     "stylus": "^0.59.0",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-router": "^4.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",

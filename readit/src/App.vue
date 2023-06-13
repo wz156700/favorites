@@ -29,7 +29,7 @@ provide("controlKeyWords", {
 </script>
 
 <template>
-  <homeView />
+  <router-view></router-view>
 </template>
 
 <style scoped lang="stylus"></style>
