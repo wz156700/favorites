@@ -7,7 +7,7 @@ import websiteList from "./websiteList/websiteList.vue";
 
 <template>
   <searchBar />
-  <dialogVue />
+  <teleport to="body"> <dialogVue /> </teleport>
   <websiteList />
 </template>
 
