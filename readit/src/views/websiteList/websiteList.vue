@@ -19,7 +19,9 @@ const { webSiteStore, keyWords } = useStore();
       >
         <img :src="item.imageUrl" :title="item.title" />
         <h2>{{ item.title }}</h2>
-        <button @click="webSiteStore.deleteOfWebsiteList(item.url)">x</button>
+        <button @click.stop="webSiteStore.deleteOfWebsiteList(item.url)">
+          x
+        </button>
       </div>
     </div>
   </div>
