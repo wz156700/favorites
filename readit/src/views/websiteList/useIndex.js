@@ -4,6 +4,7 @@ const useIndex = () => {
     const currentIndex = ref(0);
     const handClick = (item, index) => {
         currentIndex.value = index;
+        myApi.openNewWindow(item.url);
     };
     return {
         currentIndex,

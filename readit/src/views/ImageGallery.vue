@@ -4,7 +4,7 @@ import Header from "@/views/header.vue";
 
 <template>
   <Header />
-  <div class="image-container">图片搜藏</div>
+  <div class="image-container">图片收藏</div>
 </template>
 
 <style scoped>

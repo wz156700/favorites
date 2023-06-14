@@ -9,7 +9,12 @@ const openAlert = async (msg) => {
     await ipcRenderer.invoke('alert', msg);
 }
 
+const openNewWindow = async (url) => {
+    await ipcRenderer.invoke('open-window-event', url);
+}
+
 contextBridge.exposeInMainWorld('myApi', {
     sendUrl,
-    openAlert
+    openAlert,
+    openNewWindow
 })

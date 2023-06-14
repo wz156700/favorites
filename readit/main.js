@@ -3,11 +3,18 @@ const winState = require("electron-win-state").default;
 const path = require("path");
 require("./controller/getSource.js")
 require("./controller/alert.js")
+require("./controller/openWindow.js")
+
+
 
 const createWindow = () => {
     const winstate = new winState({
         defaultWidth: 1000,
         defaultHeight: 800,
+        // 解决窗口之间相互干扰问题
+        electronStoreOptions: {
+            name: 'window-state-main'
+        }
     });
 
     const win = new BrowserWindow({
@@ -18,9 +25,13 @@ const createWindow = () => {
     });
 
     win.loadURL("http://127.0.0.1:5173/");
+    // win.webContents.openDevTools = true;
+    winstate.manage(win);
 
-    win.webContents.openDevTools = true;
-    winState.manage(win);
+    // 优雅的打开窗口
+    win.once('ready-to-show', () => {
+        win.show()
+    })
 };
 
 app.whenReady().then(() => {
@@ -39,10 +50,7 @@ app.whenReady().then(() => {
         }
     });
 
-    // 优雅的打开窗口
-    win.once('ready-to-show', () => {
-        win.show()
-    })
+
 });
 
 
