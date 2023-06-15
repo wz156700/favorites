@@ -1,5 +1,6 @@
 const { ipcMain, BrowserWindow } = require("electron");
 const path = require("path")
+const save = require('./save')
 const windowStateKeeper = require("electron-win-state").default;
 const cssText = `bottom: 50px;right: 50px;position:fixed;z-index:1000;width:100px;height:30px;background-color: cornflowerblue;border-radius: 5px;text-align :center;line-height:30px;cursor:pointer;color:#fff;`
 let code = `const div =document.createElement('div')
@@ -36,9 +37,15 @@ const createWindow = (url) => {
     // 优雅的打开窗口
     win.once('ready-to-show', () => {
         win.show()
-        win.webContents.executeJavaScript(code).then(() => { }).catch((e) => { console.log(e) })
+        win.webContents.executeJavaScript(code).then(() => { }).catch((e) => { })
     })
 
+    win.webContents.on('context-menu', (e, args) => {
+        if (args.srcURL) {
+            save(args.srcURL, win)
+        }
+
+    })
 
 };
 

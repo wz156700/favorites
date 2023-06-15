@@ -3,7 +3,7 @@ import Home from '@/views/homeView.vue'
 const routes = [
     {
         path: '/',
-        redirect: '/home'
+        redirect: '/iamgeGallery'
     },
     {
         path: '/home',

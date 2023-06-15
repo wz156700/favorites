@@ -13,8 +13,21 @@ const openNewWindow = async (url) => {
     await ipcRenderer.invoke('open-window-event', url);
 }
 
+const getFileList = async () => {
+    let fileList = await ipcRenderer.invoke('get-fileList-event');
+    return fileList
+}
+
+const getFileListOnMain = async () => {
+    ipcRenderer.on('message-from-main', (e, data) => {
+        console.log(data)
+    });
+}
+
 contextBridge.exposeInMainWorld('myApi', {
     sendUrl,
     openAlert,
-    openNewWindow
+    openNewWindow,
+    getFileList,
+    getFileListOnMain
 })

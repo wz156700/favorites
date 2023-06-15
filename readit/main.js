@@ -4,6 +4,7 @@ const path = require("path");
 require("./controller/getSource.js")
 require("./controller/alert.js")
 require("./controller/openWindow.js")
+require("./controller/getFileList.js")
 
 
 
