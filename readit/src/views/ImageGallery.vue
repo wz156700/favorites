@@ -2,12 +2,6 @@
 import Header from "@/views/header.vue";
 import { onMounted, ref } from "vue";
 import { preview, vPreview, Vue3ImagePreview } from "vue3-image-preview";
-// const { proxy } = getCurrentInstance();
-
-// proxy.preview({
-//   images: state.images1,
-//   index: state.index,
-// });
 
 let fileList = ref([]);
 
@@ -23,14 +17,16 @@ const cb = async () => {
 };
 
 const previewImg = (item) => {
-  console.log();
   preview({ images: `${window.location.href.split("#")[0]}/upload/${item}` });
+};
+
+const deleteImage = (imgName) => {
+  myApi.deleteImg(imgName, cb);
 };
 
 onMounted(async () => {
   myApi.getFileListOnMain(cb);
   getImgList();
-  console.log(fileList);
 });
 </script>
 
@@ -67,6 +63,7 @@ onMounted(async () => {
             p-id="3751"
             width="30"
             height="30"
+            @click="deleteImage(item)"
           >
             <path
               d="M256 256h554.666667v640H256V256z m42.666667 42.666667v554.666666h469.333333V298.666667H298.666667z m128 128h42.666666v298.666666h-42.666666v-298.666666z m170.666666 0h42.666667v298.666666h-42.666667v-298.666666zM213.333333 256h640v42.666667H213.333333V256z m213.333334-85.333333h213.333333v42.666666h-213.333333V170.666667z"
