@@ -3,10 +3,16 @@ import Header from "@/views/header.vue";
 import { onMounted, ref } from "vue";
 
 let fileList = ref([]);
-onMounted(async () => {
+
+const cb = async () => {
   let file = await myApi.getFileList();
   fileList.value = file;
-  myApi.getFileListOnMain();
+};
+
+onMounted(async () => {
+  myApi.getFileListOnMain(cb);
+  let file = await myApi.getFileList();
+  fileList.value = file;
 });
 </script>
 

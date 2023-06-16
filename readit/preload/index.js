@@ -18,9 +18,11 @@ const getFileList = async () => {
     return fileList
 }
 
-const getFileListOnMain = async () => {
+const getFileListOnMain = (cb) => {
+    ipcRenderer.send('on-filelist-event');// 先建立与主进程的通信通道
+    // 主进程向渲染进程发送消息时接收的事件
     ipcRenderer.on('message-from-main', (e, data) => {
-        console.log(data)
+        cb()
     });
 }
 

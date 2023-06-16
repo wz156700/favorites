@@ -1,4 +1,4 @@
-const { Menu, dialog } = require("electron"); //Menu创建原生菜单喝上下文菜单,dialog 模块提供了api来展示原生的系统对话框
+const { Menu, dialog, ipcMain } = require("electron"); //Menu创建原生菜单喝上下文菜单,dialog 模块提供了api来展示原生的系统对话框
 const path = require('path');
 //避免文件名重复,引入第三方库设置文件名
 const randomstring = require("randomstring");
@@ -13,7 +13,15 @@ const { writeFile } = require('fs')
 
 const { readdir } = require('fs/promises') //node读取一个目录下所有的文件和子目录
 
-const save = (srcURL, win) => {
+//建立与渲染进程的通信通道
+let event = null
+ipcMain.on('on-filelist-event', (e, args) => {
+    event = e;
+    // 由于主进程要做别的异步操作之后才向渲染进程发送消息，
+    //所以先将对应的event暂存起来，等到对应的异步事件处理完毕之后再返回数据给渲染进程
+})
+
+const save = (srcURL) => {
 
 
     const template = [{
@@ -39,9 +47,7 @@ const save = (srcURL, win) => {
             // 如果被保存了，将文件内容写入
             if (!canceled) {
                 writeFile(filePath, bufferContent, async () => {
-                    console.log(win)
-                    const files = await readdir(path.resolve(__dirname, '../public/upload/'))
-                    
+                    event.sender.send('message-from-main', 'change') // 图片保存完毕之后，通知渲染进程
                 });
             }
         }
